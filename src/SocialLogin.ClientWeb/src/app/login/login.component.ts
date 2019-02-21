@@ -5,6 +5,8 @@ import { trigger, state, style, animate, transition } from '@angular/animations'
 import { AuthenticationService } from '../shared/services/authentication.service';
 import { Subscription } from 'rxjs';
 import { MessageService } from '../shared/services';
+import { AuthService } from "angularx-social-login";
+import { FacebookLoginProvider, GoogleLoginProvider, LinkedInLoginProvider } from "angularx-social-login";
 declare var $: any;
 
 @Component({
@@ -34,7 +36,9 @@ export class LoginComponent implements OnInit {
         private router: Router, 
         private formBuilder: FormBuilder, 
         private authenticationService: AuthenticationService,
-        private messageService: MessageService) {}
+        private messageService: MessageService,
+        private authService: AuthService
+        ) {}
 
     ngOnInit() {
         this.form = this.formBuilder.group({
@@ -49,17 +53,20 @@ export class LoginComponent implements OnInit {
         });
     }
 
-    onSubmit(formValue: any) {
-        this.loading = true;
-        const username = this.form.get('username').value;
-        const password = this.form.get('password').value;
-        this.subscription = this.authenticationService.login(username, password)
-        .subscribe(
-            data => { this.onLoginSuccess(); },
-            (response) => {
-                this.loading = false;
-                this.messageService.showMessages(response.error.messages);
-            });
+    signInWithGoogle(): void {
+        this.authService.signIn(GoogleLoginProvider.PROVIDER_ID);
+    }
+
+    signInWithFB(): void {
+        this.authService.signIn(FacebookLoginProvider.PROVIDER_ID);
+    }
+
+    signInWithLinkedIn(): void {
+        this.authService.signIn(LinkedInLoginProvider.PROVIDER_ID);
+    }  
+
+    signOut(): void {
+        this.authService.signOut();
     }
 
     onLoginSuccess() {
