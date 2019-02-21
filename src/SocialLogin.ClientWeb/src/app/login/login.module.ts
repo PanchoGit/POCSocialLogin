@@ -19,15 +19,15 @@ import { FacebookLoginProvider, GoogleLoginProvider, LinkedInLoginProvider } fro
 let config = new AuthServiceConfig([
     {
       id: GoogleLoginProvider.PROVIDER_ID,
-      provider: new GoogleLoginProvider("Google-OAuth-Client-Id")
+      provider: new GoogleLoginProvider("624796833023-clhjgupm0pu6vgga7k5i5bsfp6qp6egh.apps.googleusercontent.com")
     },
     {
       id: FacebookLoginProvider.PROVIDER_ID,
-      provider: new FacebookLoginProvider("Facebook-App-Id")
+      provider: new FacebookLoginProvider("561602290896109")
     },
     {
       id: LinkedInLoginProvider.PROVIDER_ID,
-      provider: new LinkedInLoginProvider("LinkedIn-client-Id", false, 'en_US')
+      provider: new LinkedInLoginProvider("78iqy5cu2e1fgr", false, 'en_US')
     }
   ]);
   
