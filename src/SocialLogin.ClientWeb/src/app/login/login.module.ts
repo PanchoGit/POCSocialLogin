@@ -23,7 +23,7 @@ let config = new AuthServiceConfig([
     },
     {
       id: FacebookLoginProvider.PROVIDER_ID,
-      provider: new FacebookLoginProvider("561602290896109")
+      provider: new FacebookLoginProvider("363594034481122")
     },
     {
       id: LinkedInLoginProvider.PROVIDER_ID,

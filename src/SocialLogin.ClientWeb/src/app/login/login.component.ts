@@ -5,7 +5,7 @@ import { trigger, state, style, animate, transition } from '@angular/animations'
 import { AuthenticationService } from '../shared/services/authentication.service';
 import { Subscription } from 'rxjs';
 import { MessageService } from '../shared/services';
-import { AuthService } from "angularx-social-login";
+import { AuthService, SocialUser } from "angularx-social-login";
 import { FacebookLoginProvider, GoogleLoginProvider, LinkedInLoginProvider } from "angularx-social-login";
 declare var $: any;
 
@@ -29,6 +29,7 @@ export class LoginComponent implements OnInit {
     public loading = false;
     public currentState = '';
     subscription: Subscription;
+    user: SocialUser;
 
     private finalState = 'out';
 
@@ -51,6 +52,10 @@ export class LoginComponent implements OnInit {
                 [Validators.required, Validators.minLength(4)]
             ]
         });
+        this.authService.authState.subscribe((user) => {
+            this.user = user;
+            debugger;
+          });
     }
 
     signInWithGoogle(): void {
