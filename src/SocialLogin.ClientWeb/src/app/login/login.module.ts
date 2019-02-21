@@ -13,6 +13,28 @@ import { MaterialComponentsModule } from '../layout/material-components/material
 import { SnackBarComponent } from '../layout/material-components/snack-bar/snack-bar.component';
 import { MessageService, CryptographyService } from '../shared/services';
 
+import { AuthService, AuthServiceConfig, SocialLoginModule } from "angularx-social-login";
+import { FacebookLoginProvider, GoogleLoginProvider, LinkedInLoginProvider } from "angularx-social-login";
+
+let config = new AuthServiceConfig([
+    {
+      id: GoogleLoginProvider.PROVIDER_ID,
+      provider: new GoogleLoginProvider("Google-OAuth-Client-Id")
+    },
+    {
+      id: FacebookLoginProvider.PROVIDER_ID,
+      provider: new FacebookLoginProvider("Facebook-App-Id")
+    },
+    {
+      id: LinkedInLoginProvider.PROVIDER_ID,
+      provider: new LinkedInLoginProvider("LinkedIn-client-Id", false, 'en_US')
+    }
+  ]);
+  
+  export function provideConfig() {
+    return config;
+  }
+
 @NgModule({
     imports: [
         CommonModule,
@@ -24,9 +46,15 @@ import { MessageService, CryptographyService } from '../shared/services';
         FormsModule,
         ReactiveFormsModule,
         MatProgressSpinnerModule,
-        MaterialComponentsModule
+        MaterialComponentsModule,
+        SocialLoginModule
     ],
     declarations: [LoginComponent],
-    providers: [AuthenticationService, Config, MessageService, SnackBarComponent, CryptographyService]
+    providers: [AuthenticationService, Config, MessageService, SnackBarComponent, CryptographyService,
+        {
+            provide: AuthServiceConfig,
+            useFactory: provideConfig
+        }
+    ]
 })
 export class LoginModule {}
